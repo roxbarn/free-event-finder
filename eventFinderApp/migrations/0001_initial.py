@@ -26,6 +26,7 @@ class Migration(migrations.Migration):
                 ('location', models.CharField(max_length=200)),
                 ('start_time', models.DateTimeField(verbose_name='start time and date')),
                 ('end_time', models.DateTimeField(verbose_name='end time and date')),
+                # ('venue', models.CharField(max_length=200)),
             ],
         ),
     ]
