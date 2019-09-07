@@ -1,4 +1,5 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 from django.views import generic
 from django.shortcuts import render
 from .models import Event
@@ -33,7 +34,8 @@ def addevent(request):
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:
-            return HttpResponseRedirect('/thanks/')
+            # return HttpResponseRedirect('/thanks/')
+            return HttpResponseRedirect(reverse('eventFinderApp:index'))
         return render(request, 'eventFinderApp/addevent.html', {'eventform': form})
     # if a GET (or any other method) we'll create a blank form
     else:
