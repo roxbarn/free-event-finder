@@ -12,27 +12,12 @@ class Event(models.Model):
     def __str__(self):
         return self.title
 
-    # def __str__(self):
-    #     return self.location
-
-    # def __str__(self):
-    #     return self.start_time
-
-    # def __str__(self):
-    #     return self.end_time
-
-    # def __str__(self):
-    #     return self.categories
-
-    # def get_categories(self):
-    # ret = ''
-    # print(self.categories.all())
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
     
-    # def __str__(self):
-    #     return self.name
+    def __str__(self):
+        return self.name
 
 
 
