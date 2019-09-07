@@ -23,6 +23,21 @@ def account(request):
     return render(request, 'eventFinderApp/account.html')
 
 def addevent(request):
-    eventform = EventForm()
-    return render(request, 'eventFinderApp/addevent.html', {'eventform': eventform})
 
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = EventForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return HttpResponseRedirect('/thanks/')
+        return render(request, 'eventFinderApp/addevent.html', {'eventform': form})
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        eventform = EventForm()
+        return render(request, 'eventFinderApp/addevent.html', {'eventform': eventform})
+
+    
