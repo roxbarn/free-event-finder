@@ -7,10 +7,10 @@ class Event(models.Model):
     venue = models.CharField(max_length=200)
     start_time = models.DateTimeField('start time and date')
     end_time = models.DateTimeField('end time and date')
-    categories = models.ManyToManyField(Category)
+    categories = models.ManyToManyField('Category', related_name='events')
     
-    # def __str__(self):
-    #     return self.title
+    def __str__(self):
+        return self.title
 
     # def __str__(self):
     #     return self.location
@@ -30,7 +30,6 @@ class Event(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
-    events = models.ManyToManyField(Event)
     
     # def __str__(self):
     #     return self.name
