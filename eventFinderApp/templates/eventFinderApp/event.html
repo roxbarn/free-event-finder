@@ -7,5 +7,9 @@
 <p>{{ event.location }}</p>
 <p>Starts at: {{ event.start_time }}</p>
 <p>Ends at: {{ event.end_time }}</p>
+<p>Located at: {{ event.venue }}</p>
+{% for cat in event.categories.all %}
+<p>{{ cat.name }}</p>
+{% endfor %}
 
 {% endblock %}
