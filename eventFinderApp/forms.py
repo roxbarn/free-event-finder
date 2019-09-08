@@ -12,3 +12,12 @@ class EventForm(ModelForm):
             'end_time',
             'categories' 
             ]
+
+class AccountForm(ModelForm):
+    class Meta:
+        model = Account
+        fields = [
+            'first_name',
+            'surname',
+            'email',
+        ]
