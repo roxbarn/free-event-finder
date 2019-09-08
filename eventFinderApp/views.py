@@ -1,9 +1,10 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views import generic
 from django.shortcuts import render
-from .models import Event
-from .forms import EventForm
+from .models import Event, Account
+from .forms import EventForm, AccountForm
+
 
 
 class IndexView(generic.ListView):
@@ -19,9 +20,21 @@ class EventView(generic.DetailView):
     model = Event
     template_name = 'eventFinderApp/event.html'
 
+class AccountView(generic.DetailView):
+    model = Account
+    template_name = 'eventFinderApp/account.html'
+
 
 def account(request):
-    return render(request, 'eventFinderApp/account.html')
+    accountform = AccountForm()
+    return render(request, 'eventFinderApp/account.html', {'accountform': accountform})
+
+# class AddEventCreateView(generic.CreateView):
+#     # using the create view we can just give it the variables 
+#     # as the functionaity is already built in!
+#     form_class = EventForm
+#     template_name = 'eventFinderApp/addevent.html'
+#     success_url = reverse_lazy('eventFinderApp:index')
 
 def addevent(request):
 
@@ -42,5 +55,3 @@ def addevent(request):
     else:
         eventform = EventForm()
         return render(request, 'eventFinderApp/addevent.html', {'eventform': eventform})
-
-    
