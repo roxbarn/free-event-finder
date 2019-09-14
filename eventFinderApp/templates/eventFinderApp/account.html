@@ -2,7 +2,14 @@
 
 {% block content %}
 
-<h3>Your Info</h3>
+<h3>Profile</h3>
+<p>Username: {{ user.username }}</p>
+<p>First Name: {{ user.first_name}}</p>
+<p>Last Name: {{ user.last_name}}</p>
+<p>Email Address: {{ user.email}}</p>
+
+
+<h3>Change Your Profile</h3>
 <form action="{% url 'eventFinderApp:account' %}" method="post">
   {% csrf_token %}
   {{ accountform.as_p }}
