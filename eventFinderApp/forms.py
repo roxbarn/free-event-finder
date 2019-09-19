@@ -5,6 +5,7 @@ class EventForm(ModelForm):
     class Meta:
         model = Event
         fields = [
+            'host',
             'title', 
             'location', 
             'venue', 
@@ -18,10 +19,10 @@ class AccountForm(ModelForm):
     class Meta:
         model = Account
         fields = [
+            'host', 
             'first_name',
             'surname',
             'email'
         ]
 
 
-        

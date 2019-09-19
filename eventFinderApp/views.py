@@ -1,9 +1,11 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
-from django.views import generic
-from django.shortcuts import render
-from .models import Event, Account
+from django.views import generic, View
+from django.shortcuts import render, redirect
+from .models import Event, Account, Category
 from .forms import EventForm, AccountForm
+from django.views.generic import CreateView, UpdateView
+from users.models import CustomUser
 
 
 
@@ -25,9 +27,7 @@ class AccountView(generic.DetailView):
     template_name = 'eventFinderApp/account.html'
 
 
-def account(request):
-    accountform = AccountForm()
-    return render(request, 'eventFinderApp/account.html', {'accountform': accountform})
+
 
 class AddEventCreateView(generic.CreateView):
     # using the create view we can just give it the variables 
@@ -35,6 +35,21 @@ class AddEventCreateView(generic.CreateView):
     form_class = EventForm
     template_name = 'eventFinderApp/addevent.html'
     success_url = reverse_lazy('eventFinderApp:index')
+    context_object_name = 'name'
+
+
+    def form_valid(self, form):
+        form.instance.host = self.request.user
+        print(form.cleaned_data)
+        return super().form_valid(form)
+
+    def get_initial(self):
+        # Get the initial dictionary from the superclass method
+        initial = super(AddEventCreateView, self).get_initial()
+        # Copy the dictionary so we don't accidentally change a mutable dict
+        initial = initial.copy()
+        initial['host'] = self.request.user.pk
+        return initial
 
 # def addevent(request):
 

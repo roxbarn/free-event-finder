@@ -6,8 +6,11 @@
 
 <h2>Add Your Event</h2>
 
+
   <form action="{% url 'eventFinderApp:addevent' %}" method="post">
     {% csrf_token %}
+
+    {{ form.host|as_crispy_field }} 
     <div class="form-row">
     <div class="form-group col-md-6 mb-0">
     {{ form.title|as_crispy_field }}
