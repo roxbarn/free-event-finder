@@ -22,11 +22,13 @@ class EventView(generic.DetailView):
     model = Event
     template_name = 'eventFinderApp/event.html'
 
-class AccountView(generic.DetailView):
-    model = Account
+class AccountView(generic.ListView):
+    
     template_name = 'eventFinderApp/account.html'
+    context_object_name = 'events_list'
 
-
+    def get_queryset(self):
+        return Event.objects.filter(host=self.request.user)
 
 
 class AddEventCreateView(generic.CreateView):

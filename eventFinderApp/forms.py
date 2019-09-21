@@ -16,6 +16,7 @@ class EventForm(ModelForm):
 
 
 class AccountForm(ModelForm):
+    # first_name    = forms.CharField(label='', widget=forms.TextInput(attrs={"placeholder": }))
     class Meta:
         model = Account
         fields = [
