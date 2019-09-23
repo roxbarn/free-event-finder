@@ -4,10 +4,9 @@
     
 
 {% if user.is_authenticated %}
-    <p><a href="{% url 'eventFinderApp:account' %}">My Account</a></p>
+    <p><a href="{% url 'eventFinderApp:account' %}">{{ user.username }}</a></p>
     <p><a href="{% url 'logout' %}">Logout</a></p>
 
-    <p>Hi {{ user.username }}</p>
 {% else %}
     <p><a href="{% url 'login' %}">Login / Register</a></p>
     

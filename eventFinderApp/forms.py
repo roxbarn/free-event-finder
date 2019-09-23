@@ -20,7 +20,6 @@ class AccountForm(ModelForm):
     class Meta:
         model = Account
         fields = [
-            'host', 
             'first_name',
             'surname',
             'email'

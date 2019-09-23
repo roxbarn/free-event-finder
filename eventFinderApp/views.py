@@ -6,6 +6,7 @@ from .models import Event, Account, Category
 from .forms import EventForm, AccountForm
 from django.views.generic import CreateView, UpdateView
 from users.models import CustomUser
+from users.forms import CustomUserChangeForm
 
 
 
@@ -22,13 +23,25 @@ class EventView(generic.DetailView):
     model = Event
     template_name = 'eventFinderApp/event.html'
 
-class AccountView(generic.ListView):
-    
-    template_name = 'eventFinderApp/account.html'
-    context_object_name = 'events_list'
+# class AccountView(generic.ListView):
+#     template_name = 'eventFinderApp/account.html'
+#     context_object_name = 'events_list'
 
-    def get_queryset(self):
-        return Event.objects.filter(host=self.request.user)
+#     def get_queryset(self):
+#         return Event.objects.filter(host=self.request.user)
+
+def account(request):
+    events_list = Event.objects.filter(host=request.user)
+    if request.method == 'POST':
+        print(request.POST)
+        user_form = CustomUserChangeForm(request.POST, instance=request.user)
+        if user_form.is_valid():
+            user_form.save()
+    else:
+        user_form = CustomUserChangeForm(instance=request.user)
+    context = {'events_list': events_list, 'form': user_form}
+    template_name = 'eventFinderApp/account.html'
+    return render(request, template_name, context)
 
 
 class AddEventCreateView(generic.CreateView):
