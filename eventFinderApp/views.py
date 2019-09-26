@@ -1,10 +1,11 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views import generic, View
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Event, Account, Category
 from .forms import EventForm, AccountForm
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, ListView, DetailView
+from django.views.generic.edit import UpdateView
 from users.models import CustomUser
 from users.forms import CustomUserChangeForm
 
@@ -22,6 +23,17 @@ class IndexView(generic.ListView):
 class EventView(generic.DetailView):
     model = Event
     template_name = 'eventFinderApp/event.html'
+
+class EditEvent(generic.UpdateView):
+    model = Event
+    form_class = EventForm
+    template_name = 'eventFinderApp/addevent.html'
+    success_url = reverse_lazy('eventFinderApp:index')
+    context_object_name = 'name'
+
+    def get_queryset(self):
+        # only allow logged in user to edit their own events
+        return self.model.objects.filter(host=self.request.user)
 
 # class AccountView(generic.ListView):
 #     template_name = 'eventFinderApp/account.html'

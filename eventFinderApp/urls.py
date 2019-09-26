@@ -17,6 +17,7 @@ urlpatterns = [
     # path('addeventview/', views.AddEventView.as_view(), name='addeventview'),
     # path('addeventview2/', views.AddEventView2.as_view(), name='addeventview'),
     path('addeventcreateview/', views.AddEventCreateView.as_view(), name='addevent'),
+    path('<int:pk>/event_edit/', views.EditEvent.as_view(), name='editevent'),
+    
 ]
-
 

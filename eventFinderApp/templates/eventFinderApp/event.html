@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+
 {% block content %}
 
 <h2>{{ event.title }}</h2>
@@ -12,5 +13,14 @@
 {% for cat in event.categories.all %}
 <p>{{ cat.name }}</p>
 {% endfor %}
+
+
+{% if user.is_authenticated %}
+    <a href="{% url 'eventFinderApp:editevent' pk=event.pk %}"><button>Edit Event</button></a>
+
+{% else %}
+    <p></p>
+    
+{% endif %}
 
 {% endblock %}

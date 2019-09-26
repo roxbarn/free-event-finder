@@ -8,6 +8,7 @@
 
 
   <form action="{% url 'eventFinderApp:addevent' %}" method="post">
+    {{ form.media }}
     {% csrf_token %}
     <br>
 <p> Hosted by: {{request.user}}<p>
