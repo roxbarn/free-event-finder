@@ -19,11 +19,15 @@
     </div>
 
     {% if events_list %}
-        {% for event in events_list %}
-            {% include "./detailsBox.html" with event=event %}
-        {% endfor %}
-    {% else %}
-        <p>No events are available.</p>
-    {% endif %}
+        {% comment %} {% if event.start_time > now %} {% endcomment %}
+            {% for event in events_list %}
+                {% include "./detailsBox.html" with event=event %}
+            {% endfor %}
+        {% else %}
+            <p>No events are available.</p>
+        {% endif %}
+    {% comment %} {% endif %} {% endcomment %}
 
 {% endblock %}
+
+
