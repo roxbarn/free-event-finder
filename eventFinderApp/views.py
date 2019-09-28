@@ -2,10 +2,11 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views import generic, View
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Event, Account, Category
-from .forms import EventForm, AccountForm
 from django.views.generic import CreateView, UpdateView, ListView, DetailView
 from django.views.generic.edit import UpdateView
+from django.utils import timezone
+from .models import Event, Account, Category
+from .forms import EventForm, AccountForm
 from users.models import CustomUser
 from users.forms import CustomUserChangeForm
 
@@ -23,6 +24,12 @@ class IndexView(generic.ListView):
 class EventView(generic.DetailView):
     model = Event
     template_name = 'eventFinderApp/event.html'
+
+    # def get_queryset(self):
+    #     now = timezone.now()
+    #     upcoming = Event.objects.filter(date__gte=now).order_by('date')
+    #     passed = Event.objects.filter(date__lt=now).order_by('-date')
+    #     return list(upcoming) + list(passed)
 
 class EditEvent(generic.UpdateView):
     model = Event

@@ -7,38 +7,15 @@
 <h2>Add Your Event</h2>
 
 
-  <form action="{% url 'eventFinderApp:addevent' %}" method="post">
+<form action="" method="post">
+<br>
+<p> Hosted by: {{request.user}}<p>
     {{ form.media }}
     {% csrf_token %}
-    <br>
-<p> Hosted by: {{request.user}}<p>
-    
-    <div class="form-row">
-    <div class="form-group col-md-6 mb-0">
-    {{ form.title|as_crispy_field }}
-    </div>
-      <div class="form-group col-md-6 mb-0">
-    {{ form.categories|as_crispy_field }}
-    </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-md-6 mb-0">
-        {{ form.location|as_crispy_field }}
-      </div>
-      <div class="form-group col-md-6 mb-0">
-        {{ form.venue|as_crispy_field }}
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-md-6 mb-0">
-        {{ form.start_time|as_crispy_field }}
-      </div>
-      <div class="form-group col-md-6 mb-0">
-        {{ form.end_time|as_crispy_field }}
-      </div>
-    </div>
+    {{ form|crispy }}
     <input type="submit" value="Submit">
-  </form>
+</form>
+
 
 
 {% endblock %}
