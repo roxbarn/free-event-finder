@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import CreateView, UpdateView, ListView, DetailView
 from django.views.generic.edit import UpdateView
 from django.utils import timezone
+from datetime import datetime
 from .models import Event, Account, Category
 from .forms import EventForm, AccountForm
 from users.models import CustomUser
@@ -16,20 +17,22 @@ class IndexView(generic.ListView):
     template_name = 'eventFinderApp/index.html'
     context_object_name = 'events_list'
 
+    # def get_queryset(self):
+    #     '''Return the events.'''
+    #     return Event.objects.all()
+
     def get_queryset(self):
-        '''Return the events.'''
-        return Event.objects.all()
+        now = timezone.now()
+        return Event.objects.filter(start_time__gte=now).order_by('start_time')
+
 
 
 class EventView(generic.DetailView):
     model = Event
     template_name = 'eventFinderApp/event.html'
 
-    # def get_queryset(self):
-    #     now = timezone.now()
-    #     upcoming = Event.objects.filter(date__gte=now).order_by('date')
-    #     passed = Event.objects.filter(date__lt=now).order_by('-date')
-    #     return list(upcoming) + list(passed)
+
+
 
 class EditEvent(generic.UpdateView):
     model = Event

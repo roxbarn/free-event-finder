@@ -18,6 +18,7 @@
         <a href="#">Location</a>
     </div>
 
+
     {% if events_list %}
         {% for event in events_list %}
             {% include "./detailsBox.html" with event=event %}
@@ -25,7 +26,8 @@
     {% else %}
         <p>No events are available.</p>
     {% endif %}
-{% comment %} change {% endcomment %}
+
+
 
 
 {% endblock %}
