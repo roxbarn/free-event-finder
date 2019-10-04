@@ -8,7 +8,25 @@
     <a href="{% url 'users:login' %}"> <button id="new-event">+ Create new event</button></a>
 {% endif %}
 
-    <h3>See what's on!</h3>
+    
+
+<nav class="navbar navbar-expand-md navbar-light bg-faded">
+<h3>See what's on!</h3>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar5">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse" id="navbar5">
+        <ul class="navbar-nav">
+        </ul>
+        <form class="mx-2 my-auto d-inline w-100">
+            <div class="input-group">
+                <input type="text" class="form-control border border-right-0" placeholder="Search..." name="search">
+
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+</nav>
 
     <div class="titles">
         <a href="#">Event</a>
@@ -18,6 +36,7 @@
         <a href="#">Location</a>
     </div>
 
+
     {% if events_list %}
         {% for event in events_list %}
             {% include "./detailsBox.html" with event=event %}
@@ -25,7 +44,8 @@
     {% else %}
         <p>No events are available.</p>
     {% endif %}
-{% comment %} change {% endcomment %}
+
+
 
 
 {% endblock %}
