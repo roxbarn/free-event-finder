@@ -11,8 +11,6 @@ from .forms import EventForm, AccountForm
 from users.models import CustomUser
 from users.forms import CustomUserChangeForm
 
-
-
 class IndexView(generic.ListView):
     template_name = 'eventFinderApp/index.html'
     context_object_name = 'events_list'
@@ -26,12 +24,9 @@ class IndexView(generic.ListView):
         return Event.objects.filter(start_time__gte=now).order_by('start_time')
 
 
-
 class EventView(generic.DetailView):
     model = Event
     template_name = 'eventFinderApp/event.html'
-
-
 
 
 class EditEvent(generic.UpdateView):
@@ -46,11 +41,10 @@ class EditEvent(generic.UpdateView):
         return self.model.objects.filter(host=self.request.user)
 
 # class AccountView(generic.ListView):
+#     events_list = Event.objects.filter(host=request.user)
 #     template_name = 'eventFinderApp/account.html'
 #     context_object_name = 'events_list'
 
-#     def get_queryset(self):
-#         return Event.objects.filter(host=self.request.user)
 
 def account(request):
     events_list = Event.objects.filter(host=request.user)

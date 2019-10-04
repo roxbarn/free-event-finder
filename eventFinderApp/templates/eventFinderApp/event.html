@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-
+{% load hitcount_tags %}
 {% block content %}
 
 <h2>{{ event.title }}</h2>
@@ -11,8 +11,11 @@
 <p>Ends at: {{ event.end_time }}</p>
 <p>Located at: {{ event.venue }}</p>
 {% for cat in event.categories.all %}
-<p>{{ cat.name }}</p>
+<p>Category: {{ cat.name }}</p>
 {% endfor %}
+
+<button>I'm going!</button>
+
 
 
 {% if user.is_authenticated and user == event.host %}
