@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 import socket
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,7 +27,7 @@ SECRET_KEY = 'ia%+sm_))53wjxov*1abig1-&*w8cu#f78@-(k3vu=ehn25@_q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1','freeeventfinder.herokuapp.com']
 # if 'BEANSTALK_HOST' in os.environ:
 #     ALLOWED_HOSTS.append(os.environ['BEANSTALK_HOST'])
 
@@ -53,6 +54,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'rest_framework',
     'rest_framework.authtoken',
+    'whitenoise.runserver_nostatic',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -65,6 +67,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'eventFinderProject.urls'
@@ -113,6 +116,9 @@ if 'RDS_HOSTNAME' in os.environ:
         }
     }
 
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
+
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
@@ -150,6 +156,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = (os.path.join(BASE_DIR, "static_root")
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 if 'S3_BUCKET' in os.environ:
     # setup AWS S3 as the storage for static and media
@@ -159,6 +166,8 @@ if 'S3_BUCKET' in os.environ:
     # define the AWS S3 bucket to use for storage
     AWS_STORAGE_BUCKET_NAME = os.environ['S3_BUCKET']
     AWS_DEFAULT_ACL = 'public-read'
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
@@ -170,3 +179,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ]
 }
+
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_URL = '/media/'
