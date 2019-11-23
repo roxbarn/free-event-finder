@@ -156,7 +156,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = (os.path.join(BASE_DIR, "static_root")
+STATIC_ROOT = (os.path.join(BASE_DIR, "static_root"))
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 if 'S3_BUCKET' in os.environ:
     # setup AWS S3 as the storage for static and media
